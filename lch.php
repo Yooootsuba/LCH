@@ -53,7 +53,7 @@ class LeagueClient
 
     function find_matchmaking()
     {
-        echo PHP_EOL . 'Press Ctrl + C to exit the program .' . PHP_EOL . PHP_EOL;
+        echo PHP_EOL . PHP_EOL . 'Press Ctrl + C to exit the program .' . PHP_EOL . PHP_EOL . PHP_EOL;
 
         # $gameflows
         # (
@@ -81,7 +81,7 @@ class LeagueClient
             echo "\r" . $gameflow;
         }
     }
-    
+
 }
 
 
@@ -93,7 +93,8 @@ echo
             _|                                         |
 
 
-';
+Created by Yotsuba
+' . PHP_EOL . PHP_EOL;
 
 
 # Load .env
