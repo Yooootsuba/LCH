@@ -40,8 +40,15 @@ class LeagueClient
 
     function get_gameflow()
     {
+        # GET /lol-gameflow/v1/gameflow-phase HTTP/1.1
         $response = Requests::get($this->url_prefix . '/lol-gameflow/v1/gameflow-phase', $this->headers, $this->options);
         return $response->body;
+    }
+
+    function accept_matchmaking()
+    {
+        # POST /lol-matchmaking/v1/ready-check/accept HTTP/1.1
+        $response = Requests::post($this->url_prefix . '/lol-matchmaking/v1/ready-check/accept', $this->headers, array(), $this->options);
     }
 
 }
@@ -73,5 +80,6 @@ if (is_file($lockfile) == false) {
 # Main loop
 $league_client = new LeagueClient($lockfile);
 $league_client->get_gameflow();
+$league_client->accept_matchmaking();
 
 ?>
