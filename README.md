@@ -11,7 +11,11 @@ A php script for auto accepting matchmaking in League of Legends
 $ composer install
 ```
 
-2. Run the program and feel free
+2. Edit the 'LOCKFILE' variable to your 'LeagueClient.exe' path in .env file
+
+The default path is 'C:\Garena\Games\32775\LeagueClient'
+
+3. Run the program and feel free
 
 ```sh
 $ php lch.php
