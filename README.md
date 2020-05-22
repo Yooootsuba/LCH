@@ -14,5 +14,5 @@ $ composer install
 2. Run the program and feel free
 
 ```sh
-php lch.php
+$ php lch.php
 ```
