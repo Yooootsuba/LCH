@@ -51,6 +51,37 @@ class LeagueClient
         $response = Requests::post($this->url_prefix . '/lol-matchmaking/v1/ready-check/accept', $this->headers, array(), $this->options);
     }
 
+    function find_matchmaking()
+    {
+        echo PHP_EOL . 'Press Ctrl + C to exit the program .' . PHP_EOL . PHP_EOL;
+
+        # $gameflows
+        # (
+        #     [0] => '"None"'
+        #     [1] => '"Lobby"'
+        #     [2] => '"Matchmaking"'
+        #     [3] => '"ReadyCheck"'
+        #     [4] => '"ChampSelect"'
+        #     [5] => '"InProgress"'
+        #     [6] => '"Reconnect"'
+        #     [7] => '"PreEndOfGame"'
+        #     [8] => '"EndOfGame"'
+        # )
+
+        while (true)
+        {
+            sleep(1);
+            $gameflow = $this->get_gameflow();
+            if ($gameflow == '"ReadyCheck"')
+            {
+                $this->accept_matchmaking();
+            }
+
+            echo "\r" . '               ';
+            echo "\r" . $gameflow;
+        }
+    }
+    
 }
 
 
@@ -71,7 +102,8 @@ $dotenv->load();
 
 # Make sure the lockfile exists
 $lockfile = getenv('LOCKFILE') . '\\lockfile';
-if (is_file($lockfile) == false) {
+if (is_file($lockfile) == false)
+{
     echo 'The path is not exist or LeagueClient.exe is not in process !' . PHP_EOL;
     system('pause');
     exit();
@@ -79,7 +111,7 @@ if (is_file($lockfile) == false) {
 
 # Main loop
 $league_client = new LeagueClient($lockfile);
-$league_client->get_gameflow();
-$league_client->accept_matchmaking();
+$league_client->find_matchmaking();
+
 
 ?>
