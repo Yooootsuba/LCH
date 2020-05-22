@@ -26,15 +26,22 @@ class LeagueClient
         $this->host              = '127.0.0.1';
         $this->port              =  $data[2];
         $this->connection_method =  $data[4];
-        $this->authorization     = 'Basic' . base64_encode('riot:' . $data[3]);
+        $this->authorization     = 'Basic ' . base64_encode('riot:' . $data[3]);
 
         $this->url_prefix = $this->connection_method . '://' . $this->host . ':' . $this->port;
         $this->headers    = array('Accept' => 'application/json', 'Authorization' => $this->authorization);
+        $this->options    = array('verify' => false);
 
         echo 'Host             : ' . $this->host              . PHP_EOL;
         echo 'Port             : ' . $this->port              . PHP_EOL;
         echo 'Connecton method : ' . $this->connection_method . PHP_EOL;
         echo 'Authorization    : ' . $this->authorization     . PHP_EOL;
+    }
+
+    function get_gameflow()
+    {
+        $response = Requests::get($this->url_prefix . '/lol-gameflow/v1/gameflow-phase', $this->headers, $this->options);
+        return $response->body;
     }
 
 }
@@ -65,6 +72,6 @@ if (is_file($lockfile) == false) {
 
 # Main loop
 $league_client = new LeagueClient($lockfile);
-
+$league_client->get_gameflow();
 
 ?>
